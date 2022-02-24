@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "lib/fixd_utils"
-
 Gem::Specification.new do |spec|
   spec.name = "fixd_utils"
-  spec.version = FixdUtils::VERSION
+  spec.version = "0.1.0"
   spec.authors = ["Charles Julian Knight"]
   spec.email = ["julian@fixdapp.com"]
 
