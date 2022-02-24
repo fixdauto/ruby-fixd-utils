@@ -12,4 +12,6 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  RSpec::Matchers.define_negated_matcher :an_error_other_than, :an_instance_of
 end

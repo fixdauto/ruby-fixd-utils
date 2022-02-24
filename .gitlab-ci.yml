@@ -1,4 +1,4 @@
-image: ruby:2.7.5
+image: ruby:2.7
 
 before_script:
   - gem install bundler -v 2.3.7
