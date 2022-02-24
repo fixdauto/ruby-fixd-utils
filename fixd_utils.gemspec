@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "lib/fixd_utils/version"
+require_relative "lib/fixd_utils"
 
 Gem::Specification.new do |spec|
   spec.name = "fixd_utils"
@@ -9,7 +9,10 @@ Gem::Specification.new do |spec|
   spec.email = ["julian@fixdapp.com"]
 
   spec.summary = "Small utility classes for use at FIXD."
-  spec.description = "This is a collection of small utility classes that are useful in Ruby and Rails applications at FIXD."
+  spec.description = <<~DESC
+    This is a collection of small utility classes that are useful in Ruby and Rails
+    applications at FIXD.
+  DESC
   spec.homepage = "https://git.fixdapp.com/open-source/ruby-fixd-utils"
   spec.required_ruby_version = ">= 2.6.0"
 
@@ -32,8 +35,9 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "rails", ">= 6.0", "< 8.0"
-  spec.add_dependency 'redis-semaphore', '~> 0.3.1'
+  spec.add_dependency "redis-semaphore", "~> 0.3.1"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
+  spec.metadata["rubygems_mfa_required"] = "true"
 end

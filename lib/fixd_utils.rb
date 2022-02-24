@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-require_relative "fixd_utils/version"
+require_relative "active_record_extensions"
 
-require_relative "fixd_utils/base_32"
-require_relative "fixd_utils/network_error"
-require_relative "fixd_utils/uri_builder"
-# require_relative "fixd_utils/data_struct"
-# require_relative "fixd_utils/global_lock"
+require_relative "base_32"
+require_relative "network_error"
+require_relative "uri_builder"
+require_relative "global_lock"
 
 module FixdUtils
-  class Error < StandardError; end
-  # Your code goes here...
+  VERSION = "0.1.0"
 end

@@ -11,4 +11,6 @@ gem "rspec", "~> 3.0"
 
 gem "rubocop", "~> 1.21"
 
-gem 'rubocop-rspec'
+gem "rubocop-rspec"
+
+gem "debug", platforms: %i[mri mingw x64_mingw]
