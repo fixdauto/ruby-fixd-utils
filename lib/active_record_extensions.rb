@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "active_record"
-require "pg"
+require "pg/exceptions"
 
 # Database-related utility functions
 module ActiveRecordExtensions
