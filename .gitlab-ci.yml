@@ -4,6 +4,29 @@ before_script:
   - gem install bundler -v 2.3.7
   - bundle install
 
-example_job:
+rspec:
+  tags: [docker]
   script:
-    - bundle exec rake
+    - >
+      bundle exec rspec --format documentation
+      --require rspec_junit_formatter
+      --format RspecJunitFormatter
+      --out rspec.xml
+      --tty --color
+
+rubocop:
+  tags: [docker]
+  script:
+  - bundle exec rubocop
+
+bundle_audit:
+  stage: test
+  tags: [docker]
+  script:
+    - bundle exec bundle audit check --update
+
+license_check:
+  stage: test
+  tags: [docker]
+  script:
+    - bundle exec license_finder action_items

@@ -9,8 +9,16 @@ gem "rake", "~> 13.0"
 
 gem "rspec", "~> 3.0"
 
+gem "rspec_junit_formatter"
+
 gem "rubocop", "~> 1.21"
 
 gem "rubocop-rspec"
 
+gem "rubocop-rake"
+
 gem "debug", platforms: %i[mri mingw x64_mingw]
+
+gem "bundler-audit", require: false
+
+gem "license_finder", require: false
