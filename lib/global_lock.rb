@@ -78,7 +78,9 @@ module GlobalLock
   # automatically after `expires`. If `wait_max` is supplied, this will not block for longer than
   # that waiting for the lock to be avialable, and throw LockTimeoutError instead. If not supplied,
   # will block as long as required.
-  delegate :aquire, to: :default_implementation
+  def aquire(*args, **kwargs, &block)
+    default_implementation.aquire(*args, **kwargs, &block)
+  end
 
   def default_implementation
     return SingleProcessLock if Rails.env.test?
