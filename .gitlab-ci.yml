@@ -24,9 +24,3 @@ bundle_audit:
   tags: [docker]
   script:
     - bundle exec bundle audit check --update
-
-license_check:
-  stage: test
-  tags: [docker]
-  script:
-    - bundle exec license_finder action_items
