@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require "net/http"
 
 RSpec.describe NetworkError do
   examples = [
@@ -30,6 +31,34 @@ RSpec.describe NetworkError do
         raise StandardError, "message"
       end
     end.to raise_error(an_error_other_than(described_class))
+  end
+
+  it "wraps if the cause of an error matches" do # rubocop:disable RSpec/ExampleLength
+    expect do
+      described_class.handle do
+        raise SocketError, "inner"
+      rescue SocketError
+        raise StandardError, "wrapped"
+      end
+    end.to raise_error(described_class, "wrapped")
+  end
+
+  context "when using 3rd party networking libraries" do
+    describe "http" do
+      before { require "http" }
+
+      it "wraps errors" do
+        expect(described_class.caused_by?(HTTP::TimeoutError.new(""))).to eq true
+      end
+    end
+
+    describe "excon" do
+      before { require "excon" }
+
+      it "wraps errors" do
+        expect(described_class.caused_by?(Excon::Error::Socket.new)).to eq true
+      end
+    end
   end
 
   describe NetworkError::Wrap do

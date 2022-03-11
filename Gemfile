@@ -20,3 +20,7 @@ gem "rubocop-rake"
 gem "debug", platforms: %i[mri mingw x64_mingw]
 
 gem "bundler-audit", require: false
+
+# These are not required by the library, but if used should work with NetworkError
+gem "excon"
+gem "http"
