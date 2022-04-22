@@ -1,3 +1,8 @@
+# 0.3.0
+
+- Extracted `DataStruct` from FIXD application, and refactored to separate files
+- Updated Rubocop
+
 # 0.2.0
 
 `NetworkError` now checks error causes, and supports the [`http`](https://github.com/httprb) and [`excon`](https://github.com/excon/excon) libraries, if installed
