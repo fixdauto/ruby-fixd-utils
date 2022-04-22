@@ -11,9 +11,7 @@ gem "rspec", "~> 3.0"
 
 gem "rspec_junit_formatter"
 
-gem "rubocop", "~> 1.21"
-
-gem "rubocop-rspec"
+gem "rubocop", "~> 1.28"
 
 gem "rubocop-rake"
 
@@ -24,3 +22,6 @@ gem "bundler-audit", require: false
 # These are not required by the library, but if used should work with NetworkError
 gem "excon"
 gem "http"
+
+# used in tests:
+gem "money"

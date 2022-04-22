@@ -1,5 +1,4 @@
 require:
-  - rubocop-rspec
   - rubocop-rake
 
 AllCops:
@@ -130,13 +129,17 @@ Style/StringChars: # new in 1.12
   Enabled: true
 Style/SwapValues: # new in 1.1
   Enabled: true
-RSpec/ExcessiveDocstringSpacing: # new in 2.5
+
+Lint/RefinementImportMethods: # new in 1.27
   Enabled: true
-RSpec/IdenticalEqualityAssertion: # new in 2.4
+Style/NestedFileDirname: # new in 1.26
   Enabled: true
-RSpec/SubjectDeclaration: # new in 2.5
+Style/RedundantInitialize: # new in 1.27
   Enabled: true
-RSpec/FactoryBot/SyntaxMethods: # new in 2.7
+Security/CompoundHash: # new in 1.28
   Enabled: true
-RSpec/Rails/AvoidSetupHook: # new in 2.4
+Style/FetchEnvVar: # new in 1.28
   Enabled: true
+Style/ObjectThen: # new in 1.28
+  Enabled: true
+  

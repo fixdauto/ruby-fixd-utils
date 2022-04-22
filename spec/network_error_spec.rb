@@ -33,7 +33,7 @@ RSpec.describe NetworkError do
     end.to raise_error(an_error_other_than(described_class))
   end
 
-  it "wraps if the cause of an error matches" do # rubocop:disable RSpec/ExampleLength
+  it "wraps if the cause of an error matches" do
     expect do
       described_class.handle do
         raise SocketError, "inner"
