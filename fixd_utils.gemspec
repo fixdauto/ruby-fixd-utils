@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "fixd_utils"
-  spec.version = "0.3.0"
+  spec.version = "0.3.1"
   spec.authors = ["Charles Julian Knight"]
   spec.email = ["julian@fixdapp.com"]
 
