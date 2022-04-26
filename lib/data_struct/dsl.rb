@@ -27,8 +27,12 @@ module DataStruct
     end
 
     def conversions
-      @conversions ||=
-        (module_parent.respond_to?(:conversions) ? module_parent.conversions : DataStruct::BUILTIN_CONVERSIONS).dup
+      @conversions ||= begin
+        conversions = DataStruct::BUILTIN_CONVERSIONS.dup
+        conversions.merge!(module_parent.conversions.dup) if module_parent.respond_to?(:conversions)
+        conversions.merge!(superclass.conversions.dup) if superclass.respond_to?(:conversions)
+        conversions
+      end
     end
 
     def define(name, field_definitions, &block)

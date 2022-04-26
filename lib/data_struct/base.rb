@@ -79,7 +79,7 @@ module DataStruct
     end
 
     def _nested_object?(defn)
-      defn.respond_to?(:superclass) && defn.superclass == DataStruct::Base
+      defn.respond_to?(:ancestors) && defn.ancestors.include?(DataStruct::Base)
     end
 
     def _verify!(attrs)
@@ -100,7 +100,7 @@ module DataStruct
       elsif defn == DataStruct::Boolean then DataStruct::Boolean.verify!(key, value)
       elsif defn != value.class
         raise DataStruct::InvalidParameterError,
-              "Expected `#{key}` to be a #{defn} but was `#{value}` (#{value.class})"
+              "Expected `#{key}` to be a #{defn} but was `#{value}` (#{value.class}) in #{self.class.name}"
       end
     end
   end
