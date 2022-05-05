@@ -36,6 +36,26 @@ class Api
 end
 ```
 
+## DurationAttributes
+
+Helper for duration values in ActiveRecord fields.
+
+```ruby
+class Foo < ActiveModel::Model
+  include DurationAttributes
+  attr_accessor :trial_period_seconds
+  duration_attribute :trial_period, unit: :seconds
+end
+foo = Foo.new(trial_period_seconds: 60)
+foo.trial_period # 1.minute
+foo.trial_period = 1.year
+foo.trial_period # 1.year
+foo.trial_period_seconds # 31556952
+foo.trial_period = 'P3M'
+foo.trial_period # 3.months
+foo.trial_period_seconds # 7889238
+```
+
 ## UriBuilder
 
 ```ruby
