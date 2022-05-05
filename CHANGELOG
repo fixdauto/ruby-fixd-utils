@@ -1,3 +1,7 @@
+# 0.4.0
+
+- Extracted `DurationAttributes` from FIXD application
+
 # 0.3.1
 
 - Allow `DataStruct` to use class inheritance
