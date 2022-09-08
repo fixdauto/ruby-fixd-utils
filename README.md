@@ -21,7 +21,7 @@ end
 A wrapper error class for common transient network issues.
 
 ```ruby
-NetworkError.wrap do
+NetworkError.handle do
     Net::HTTP.get('/some-path') # if this raises e.g. Net::ReadTimeout...
 end # ... this will raise NetworkError.new(cause: Net::ReadTimeout)
 
