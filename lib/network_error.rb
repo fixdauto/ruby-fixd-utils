@@ -8,11 +8,9 @@ require "active_support/concern"
 # upstream but it was an error response. This is specifically
 # for errors during transmission of a request.
 class NetworkError < StandardError
-  attr_reader :cause
-
-  def initialize(cause, message: nil)
-    super(message || cause.message)
-    @cause = cause
+  def initialize(message)
+    message = message.message if message.is_a?(Exception)
+    super(message)
   end
 
   DEFAULT_ERROR_CLASS_NAMES = [
@@ -57,9 +55,9 @@ class NetworkError < StandardError
     # Looks at an HTTParty response, and if it's a gateway-related
     # server error raises a NetworkError
     def raise_if_gateway_error!(res)
-      raise NetworkError.new(nil, message: "Bad Gateway") if res.code == 501
-      raise NetworkError.new(nil, message: "Service Unavailable") if res.code == 503
-      raise NetworkError.new(nil, message: "Gateway Timeout") if res.code == 504
+      raise NetworkError, "Bad Gateway" if res.code == 501
+      raise NetworkError, "Service Unavailable" if res.code == 503
+      raise NetworkError, "Gateway Timeout" if res.code == 504
 
       res
     end
