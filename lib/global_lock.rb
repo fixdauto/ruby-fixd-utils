@@ -84,6 +84,7 @@ module GlobalLock
 
   def default_implementation
     return SingleProcessLock if Rails.env.test?
+    return SingleProcessLock if Rails.env.development? && ENV.fetch("USE_REDIS", "false") != "true"
 
     RedisLock.new(Rails.application.config.redis_config.dup)
   end
