@@ -1,3 +1,7 @@
+# 1.0.1
+
+- Default to using non-Redis implementation of `GlobalLock` in development environments
+
 # 1.0.0
 
 - BREAKING CHANGE: `NetworkError` now takes a message as first argument like a regular ruby exception, instead of as a kwarg
