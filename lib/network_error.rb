@@ -96,9 +96,9 @@ class NetworkError < StandardError
       def handle_network_errors(*methods)
         handler = Module.new do
           methods.each do |method|
-            define_method(method) do |*args|
+            define_method(method) do |*args, **kwargs, &block|
               NetworkError.handle do
-                super(*args)
+                super(*args, **kwargs, &block)
               end
             end
           end

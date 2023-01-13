@@ -23,14 +23,14 @@ require "redis-semaphore"
 # Here's some test mechanisms:
 #   Redis-backed - paste twice in separate consoles:
 #     Benchmark.measure do
-#       GlobalLock.aquire('foo2') do
+#       GlobalLock.acquire('foo2') do
 #         sleep 10.seconds
 #         puts "ok"
 #       end
 #     end.real
 #
 #     Benchmark.measure do
-#       GlobalLock.aquire('foo2', wait_max: 1.second) do
+#       GlobalLock.acquire('foo2', wait_max: 1.second) do
 #         sleep 10.seconds
 #         puts "ok"
 #       end
@@ -38,7 +38,7 @@ require "redis-semaphore"
 #
 #     # run in 2 consoles, and then stop one of them with Ctrl-C
 #     Benchmark.measure do
-#       GlobalLock.aquire('foo3', expires: 30.seconds) do
+#       GlobalLock.acquire('foo3', expires: 30.seconds) do
 #         sleep 10.seconds
 #         puts "ok"
 #       end
@@ -48,7 +48,7 @@ require "redis-semaphore"
 #     2.times.map do |i|
 #       Thread.new do
 #         t = Benchmark.measure do
-#           GlobalLock::SingleProcessLock.aquire('foo2', wait_max: nil) do
+#           GlobalLock::SingleProcessLock.acquire('foo2', wait_max: nil) do
 #             sleep 10.seconds
 #             puts "ok"
 #           end
@@ -60,7 +60,7 @@ require "redis-semaphore"
 #     2.times.map do |i|
 #       Thread.new do
 #         t = Benchmark.measure do
-#           GlobalLock::SingleProcessLock.aquire('foo2', wait_max: 1.second) do
+#           GlobalLock::SingleProcessLock.acquire('foo2', wait_max: 1.second) do
 #             sleep 10.seconds
 #             puts "ok"
 #           end
@@ -78,8 +78,8 @@ module GlobalLock
   # automatically after `expires`. If `wait_max` is supplied, this will not block for longer than
   # that waiting for the lock to be avialable, and throw LockTimeoutError instead. If not supplied,
   # will block as long as required.
-  def aquire(*args, **kwargs, &block)
-    default_implementation.aquire(*args, **kwargs, &block)
+  def acquire(*args, **kwargs, &block)
+    default_implementation.acquire(*args, **kwargs, &block)
   end
 
   def default_implementation
@@ -102,7 +102,7 @@ module GlobalLock
       @redis_config = redis_config
     end
 
-    def aquire(key, expires: 5.minutes, wait_max: nil, &block)
+    def acquire(key, expires: 5.minutes, wait_max: nil, &block)
       opts = @redis_config.merge(stale_client_timeout: expires, expiration: expires * 2)
       semaphore = Redis::Semaphore.new(key, opts)
       return semaphore.lock(&block) if wait_max.blank?
@@ -126,7 +126,7 @@ module GlobalLock
   module SingleProcessLock
     module_function
 
-    def aquire(key, opts = {}, &block)
+    def acquire(key, opts = {}, &block)
       @locks ||= {}
       @locks[key] ||= Mutex.new
       wait_max = opts[:wait_max]
