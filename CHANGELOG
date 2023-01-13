@@ -1,3 +1,8 @@
+# 1.1.0
+
+- Fix passing of keyword arguments in `NetworkError::Wrap`
+- Fix `aquire` typo in `GlobalLock`
+
 # 1.0.1
 
 - Default to using non-Redis implementation of `GlobalLock` in development environments

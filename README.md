@@ -116,7 +116,7 @@ UriBuilder.build(
 A Redis-backed mutex that can cross process boundaries.
 
 ```ruby
-GlobalLock.aquire("some-lock-key") do
+GlobalLock.acquire("some-lock-key") do
     # can trust only one ruby process is in this block for the same key at a time
 end
 ```
