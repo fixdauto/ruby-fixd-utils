@@ -78,8 +78,8 @@ module GlobalLock
   # automatically after `expires`. If `wait_max` is supplied, this will not block for longer than
   # that waiting for the lock to be avialable, and throw LockTimeoutError instead. If not supplied,
   # will block as long as required.
-  def acquire(*args, **kwargs, &block)
-    default_implementation.acquire(*args, **kwargs, &block)
+  def acquire(...)
+    default_implementation.acquire(...)
   end
 
   def default_implementation

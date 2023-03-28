@@ -2,7 +2,7 @@ require:
   - rubocop-rake
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.2
 
 Style/StringLiterals:
   Enabled: true
@@ -11,6 +11,9 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: consistent
 
 Layout/LineLength:
   Max: 120

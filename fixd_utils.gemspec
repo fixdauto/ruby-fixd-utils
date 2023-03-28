@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
     applications at FIXD.
   DESC
   spec.homepage = "https://git.fixdapp.com/open-source/ruby-fixd-utils"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.required_ruby_version = ">= 3.2.1"
 
   spec.metadata["allowed_push_host"] = "_"
 
