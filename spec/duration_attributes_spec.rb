@@ -78,6 +78,57 @@ RSpec.describe DurationAttributes do
     end
   end
 
+  describe "dynamic unit" do
+    before do
+      stub_const("DurationAttributeTest2", Class.new do
+        include ActiveModel::Model
+        include DurationAttributes
+        attr_accessor :trial_period_unit
+        attr_accessor :trial_period_value
+
+        dynamic_duration_attribute :trial_period
+      end)
+    end
+
+    let(:test_obj) { DurationAttributeTest2.new(trial_period: 1.second) }
+
+    it "should allow setting durations with arbitrary units" do
+      test_obj.trial_period = 1.second
+      expect(test_obj.trial_period_value).to eq 1
+      expect(test_obj.trial_period_unit).to eq "seconds"
+      test_obj.trial_period = 2.years
+      expect(test_obj.trial_period_value).to eq 2
+      expect(test_obj.trial_period_unit).to eq "years"
+      test_obj.trial_period = "P1Y"
+      expect(test_obj.trial_period_value).to eq 1
+      expect(test_obj.trial_period_unit).to eq "years"
+      test_obj.trial_period = 7.days
+      expect(test_obj.trial_period_value).to eq 7
+      expect(test_obj.trial_period_unit).to eq "days"
+    end
+
+    it "should update durations when raw values change" do
+      test_obj.trial_period_value = 5
+      expect(test_obj.trial_period).to eq 5.seconds
+      test_obj.trial_period_unit = "weeks"
+      expect(test_obj.trial_period).to eq 5.weeks
+    end
+
+    it "should error if an invalid unit is supplied" do
+      test_obj.trial_period_unit = "poo"
+      expect { test_obj.trial_period }.to raise_error(ArgumentError, /Invalid unit: poo/)
+    end
+
+    it "should error if a multi-unit duration is supplied" do
+      expect do
+        test_obj.trial_period = (1.month + 1.day)
+      end.to raise_error(ArgumentError,
+                         /Duration attribute `trial_period` can not have more than one unit/)
+
+      expect { test_obj.trial_period = 32.days }.not_to raise_error
+    end
+  end
+
   describe "use_build" do
     context "false" do
       let(:test_obj) do

@@ -22,10 +22,58 @@ require "active_support/time"
 # foo.trial_period # 3.months
 # foo.trial_period_seconds # 7889238
 # ```
+#
+# It also supports `unit` being a reference to a method:
+# ```ruby
+# class Foo < ActiveModel::Model
+#   include DurationAttributes
+#   attr_accessor :trial_period_unit
+#   attr_accessor :trial_period_value
+#   dynamic_duration_attribute :trial_period
+# end
 module DurationAttributes
   extend ActiveSupport::Concern
 
+  UNITS = %w[
+    minutes
+    years
+    days
+    seconds
+    weeks
+    months
+    hours
+  ].freeze
+
+  # rubocop:disable Metrics/BlockLength,Metrics/MethodLength
   class_methods do
+    def dynamic_duration_attribute(name, unit_column: "#{name}_unit", value_column: "#{name}_value")
+      define_method(name) do
+        raw_value = public_send(value_column)
+        unit = public_send(unit_column)
+        return nil unless raw_value
+        raise ArgumentError, "Invalid unit: #{unit}" unless UNITS.include?(unit.to_s)
+
+        ActiveSupport::Duration.send(unit, raw_value)
+      end
+
+      define_method("#{name}=") do |duration|
+        if duration.nil?
+          public_send("#{value_column}=", nil)
+          public_send("#{unit_column}=", nil)
+          return
+        end
+
+        duration = ActiveSupport::Duration.parse(duration) if duration.is_a?(String)
+        if duration.parts.size != 1
+          raise ArgumentError,
+                "Duration attribute `#{name}` can not have more than one unit, given `#{duration.inspect}`"
+        end
+        unit, value = duration.parts.first
+        public_send("#{value_column}=", value)
+        public_send("#{unit_column}=", unit.to_s)
+      end
+    end
+
     def duration_attribute(name, unit: :seconds, column_name: "#{name}_#{unit}", use_build: unit == :seconds)
       base = ActiveSupport::Duration.send(unit, 1)
 
@@ -48,4 +96,5 @@ module DurationAttributes
       end
     end
   end
+  # rubocop:enable Metrics/BlockLength,Metrics/MethodLength
 end
