@@ -35,8 +35,8 @@ module DataStruct
       end
     end
 
-    def define(name, field_definitions, &block)
-      clazz = Class.new(DataStruct::Base, &block)
+    def define(name, field_definitions, &)
+      clazz = Class.new(DataStruct::Base, &)
       clazz.define_attributes(field_definitions)
       # inherit converters from parent
       clazz.conversions.reverse_merge!(conversions)
