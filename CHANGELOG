@@ -1,3 +1,8 @@
+# 1.2.0
+
+- Update ruby to 3.2
+- Add support for `dynamic_duration_attribute` with arbitrary units
+
 # 1.1.0
 
 - Fix passing of keyword arguments in `NetworkError::Wrap`
