@@ -189,3 +189,9 @@ Style/RedundantHeredocDelimiterQuotes: # new in 1.45
   Enabled: true
 Style/RedundantStringEscape: # new in 1.37
   Enabled: true
+Metrics/CollectionLiteralLength: # new in 1.47
+  Enabled: true
+Style/DirEmpty: # new in 1.48
+  Enabled: true
+Style/FileEmpty: # new in 1.48
+  Enabled: true
