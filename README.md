@@ -11,8 +11,25 @@ Base32.secure_generate(8) # "D68SSNJ4"
 ## ActiveRecordExtensions
 
 ```ruby
+# Avoid race conditions on unique constraints
 ActiveRecordExtensions.retry_on_conflict do
     User.find_or_create_by!(email: email)
+end
+
+charge = Charge.create!
+ActiveRecord::Base.transaction do
+  order = Order.create(charge: charge)
+  begin
+    Gateway.execute_sale!(charge)
+    charge.update!(state: :settled)
+  rescue ChargeError
+    # Execute a database operation even if transaction is rolled back
+    ActiveRecordExtensions.execute_outside_transaction do
+      charge.update!(state: :declined)
+    end
+    raise
+  end
+  after_commit { OrderMailer.receipt(order).deliver_later }
 end
 ```
 
