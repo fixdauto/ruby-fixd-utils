@@ -475,4 +475,27 @@ RSpec.describe DataStruct do
       expect(foo.b.c.amount).to eq 3.50
     end
   end
+
+  describe "param keys" do
+    before do
+      stub_const("Foo", Class.new(DataStruct::Base) do
+        define_attributes a: String,
+                          b: Integer,
+                          c: [DataStruct::Boolean],
+                          d: DataStruct::Enum.new(%w[a b c]),
+                          e: define("Nested",
+                                    a: String,
+                                    b: define("SubNested", c: String)),
+                          f: [define("ArrayNested", a: String)]
+      end)
+    end
+
+    it "should return the parameter keys" do
+      expect(Foo.param_keys).to eq(
+        [
+          "a", "b", { "c" => [] }, "d", { "e" => ["a", { "b" => ["c"] }] }, { "f" => ["a"] }
+        ]
+      )
+    end
+  end
 end

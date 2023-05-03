@@ -44,5 +44,23 @@ module DataStruct
       const_set(name, clazz)
       clazz
     end
+
+    # return a structure of keys that can be passed to
+    # ActionController::Parameters#permit to permit all defined parameters.
+    def param_keys(clazz = self)
+      clazz.defined_attributes.map do |name, defn|
+        if defn.is_a?(Array)
+          if defn[0].respond_to?(:defined_attributes)
+            { name => param_keys(defn[0]) }
+          else
+            { name => [] }
+          end
+        elsif defn.respond_to?(:defined_attributes)
+          { name => param_keys(defn) }
+        else
+          name
+        end
+      end
+    end
   end
 end

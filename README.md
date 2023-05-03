@@ -116,6 +116,8 @@ foo.admin?
 foo.to_hash == json_representation
 Foo.new(json_representation) == foo
 new_foo = foo.copy(is_admin: false)
+# Permit ActionController::Parameters with all nested, defined keys
+Foo.new(params.require(:foo).permit(*Foo.param_keys))
 ```
 
 ## UriBuilder
