@@ -1,6 +1,7 @@
 # 1.2.2
 
 - Add support for `DataStruct.param_keys`
+- Update `nokogiri` dependency to `1.14.3` for [`GHSA-pxvg-2qj5-37jq`](https://github.com/sparklemotion/nokogiri/security/advisories/GHSA-pxvg-2qj5-37jq)
 
 # 1.2.1
 
