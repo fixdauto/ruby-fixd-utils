@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "active_support/concern"
+require 'active_support/concern'
 
 # This is a wrapper for lots of different StandardErrors that
 # are the result of network connectivity problems. Note: this
@@ -16,27 +16,27 @@ class NetworkError < StandardError
   DEFAULT_ERROR_CLASS_NAMES = [
     # net/http
     # httparty just wraps net/http so it doesn't have special error classes
-    "Net::OpenTimeout",
-    "Net::ReadTimeout",
+    'Net::OpenTimeout',
+    'Net::ReadTimeout',
     # net/smtp
-    "Net::SMTPServerBusy",
+    'Net::SMTPServerBusy',
     # http [https://github.com/httprb]
-    "HTTP::TimeoutError",
-    "HTTP::ConnectionError",
+    'HTTP::TimeoutError',
+    'HTTP::ConnectionError',
     # excon [https://github.com/excon/excon]
-    "Excon::Error::Socket",
-    "Excon::Error::Timeout",
-    "Excon::Error::BadGateway",
-    "Excon::Error::ServiceUnavailable",
-    "Excon::Error::GatewayTimeout",
+    'Excon::Error::Socket',
+    'Excon::Error::Timeout',
+    'Excon::Error::BadGateway',
+    'Excon::Error::ServiceUnavailable',
+    'Excon::Error::GatewayTimeout',
     # ssl
-    "OpenSSL::SSL::SSLError",
+    'OpenSSL::SSL::SSLError',
     # low-level OS errors
-    "EOFError",
-    "SocketError",
-    "Errno::EPIPE",
-    "Errno::ECONNRESET",
-    "Errno::EHOSTUNREACH"
+    'EOFError',
+    'SocketError',
+    'Errno::EPIPE',
+    'Errno::ECONNRESET',
+    'Errno::EHOSTUNREACH'
   ].freeze
 
   class << self
@@ -55,9 +55,9 @@ class NetworkError < StandardError
     # Looks at an HTTParty response, and if it's a gateway-related
     # server error raises a NetworkError
     def raise_if_gateway_error!(res)
-      raise NetworkError, "Bad Gateway" if res.code == 501
-      raise NetworkError, "Service Unavailable" if res.code == 503
-      raise NetworkError, "Gateway Timeout" if res.code == 504
+      raise NetworkError, 'Bad Gateway' if res.code == 501
+      raise NetworkError, 'Service Unavailable' if res.code == 503
+      raise NetworkError, 'Gateway Timeout' if res.code == 504
 
       res
     end

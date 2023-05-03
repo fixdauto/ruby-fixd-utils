@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "active_support"
-require "active_support/time"
+require 'active_support'
+require 'active_support/time'
 
-require_relative "data_struct/base"
-require_relative "data_struct/boolean"
+require_relative 'data_struct/base'
+require_relative 'data_struct/boolean'
 
 # Define data classes with basic type validation and conversion.
 # Kinda like `Struct.new` but easier to use. Useful for external APIs.

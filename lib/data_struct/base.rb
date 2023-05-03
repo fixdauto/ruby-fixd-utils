@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "active_model"
+require 'active_model'
 
-require_relative "boolean"
-require_relative "dsl"
-require_relative "enum"
+require_relative 'boolean'
+require_relative 'dsl'
+require_relative 'enum'
 
 module DataStruct
   # The base class to inherit from to create a DataStruct

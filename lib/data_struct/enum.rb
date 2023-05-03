@@ -6,7 +6,7 @@ module DataStruct
       return if allowed_values.include?(value)
 
       raise DataStruct::InvalidParameterError,
-            "Unexpected enum value `#{value}` for key `#{key}`. Expected one of: #{allowed_values.join(",")}"
+            "Unexpected enum value `#{value}` for key `#{key}`. Expected one of: #{allowed_values.join(',')}"
     end
   end
 end

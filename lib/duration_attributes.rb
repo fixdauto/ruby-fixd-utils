@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "active_support"
-require "active_support/time"
+require 'active_support'
+require 'active_support/time'
 
 # Declare getter and setter methods for `ActiveSupport::Duration` objects
 # backed by a column containing the value in seconds. Works with duration

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "boolean"
+require_relative 'boolean'
 
 module DataStruct
   # Declarative class methods for DataStructs
@@ -13,7 +13,7 @@ module DataStruct
       field_definitions.each do |name, defn|
         next unless defn == DataStruct::Boolean
 
-        method_name = "#{name}?".delete_prefix("is_").delete_prefix("has_")
+        method_name = "#{name}?".delete_prefix('is_').delete_prefix('has_')
         define_method(method_name) { public_send(name) }
       end
     end

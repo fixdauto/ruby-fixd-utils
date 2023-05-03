@@ -3,14 +3,13 @@ require:
 
 AllCops:
   TargetRubyVersion: 3.1
+  SuggestExtensions: false
 
 Style/StringLiterals:
   Enabled: true
-  EnforcedStyle: double_quotes
 
 Style/StringLiteralsInInterpolation:
   Enabled: true
-  EnforcedStyle: double_quotes
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: consistent
@@ -200,4 +199,10 @@ Metrics/CollectionLiteralLength: # new in 1.47
 Style/DirEmpty: # new in 1.48
   Enabled: true
 Style/FileEmpty: # new in 1.48
+  Enabled: true
+Lint/DuplicateMatchPattern: # new in 1.50
+  Enabled: true
+Style/DataInheritance: # new in 1.49
+  Enabled: true
+Style/RedundantLineContinuation: # new in 1.49
   Enabled: true

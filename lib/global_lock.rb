@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "rails"
-require "redis-semaphore"
+require 'rails'
+require 'redis-semaphore'
 
 # There are situations where concurrent access to the same data can cause problems. Regular
 # concurrency primitves aren't really in Ruby, as even when Ruby is using multiple threads
@@ -84,7 +84,7 @@ module GlobalLock
 
   def default_implementation
     return SingleProcessLock if Rails.env.test?
-    return SingleProcessLock if Rails.env.development? && ENV.fetch("USE_REDIS", "false") != "true"
+    return SingleProcessLock if Rails.env.development? && ENV.fetch('USE_REDIS', 'false') != 'true'
 
     RedisLock.new(Rails.application.config.redis_config.dup)
   end

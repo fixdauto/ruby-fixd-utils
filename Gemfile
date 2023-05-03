@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # Specify your gem's dependencies in fixd_utils.gemspec
 gemspec
 
-gem "rake", "~> 13.0"
+gem 'rake', '~> 13.0'
 
-gem "rspec", "~> 3.0"
+gem 'rspec', '~> 3.0'
 
-gem "rspec_junit_formatter"
+gem 'rspec_junit_formatter'
 
-gem "rubocop", "~> 1.28"
+gem 'rubocop', '~> 1.49'
 
-gem "rubocop-rake"
+gem 'rubocop-rake'
 
-gem "debug", platforms: %i[mri mingw x64_mingw]
+gem 'debug', platforms: %i[mri mingw x64_mingw]
 
-gem "bundler-audit", require: false
+gem 'bundler-audit', require: false
 
 # These are not required by the library, but if used should work with NetworkError
-gem "excon"
-gem "http"
+gem 'excon'
+gem 'http'
 
 # used in tests:
-gem "money"
+gem 'money'

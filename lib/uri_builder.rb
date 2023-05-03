@@ -4,13 +4,13 @@
 class UriBuilder
   def self.build(opts)
     host = opts[:host]
-    host = "http://#{host}" unless host.start_with?("http")
+    host = "http://#{host}" unless host.start_with?('http')
     base = URI.parse(host)
     build_opts = {}
     build_opts[:host] = base.host
     build_opts[:port] = base.port
     build_opts[:path] = opts[:path]
-    build_opts[:path] = "/#{build_opts[:path]}" if build_opts[:path] && !build_opts[:path].start_with?("/")
+    build_opts[:path] = "/#{build_opts[:path]}" if build_opts[:path] && !build_opts[:path].start_with?('/')
 
     case opts[:query]
     when String
@@ -19,7 +19,7 @@ class UriBuilder
       build_opts[:query] = URI.encode_www_form(opts[:query])
     end
 
-    if base.scheme == "https"
+    if base.scheme == 'https'
       URI::HTTPS.build(build_opts)
     else
       URI::HTTP.build(build_opts)
