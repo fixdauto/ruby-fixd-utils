@@ -1,3 +1,7 @@
+# 1.2.2
+
+- Add support for `DataStruct.param_keys`
+
 # 1.2.1
 
 - Add support for `ActiveRecordExtensions.execute_outside_transaction`
