@@ -486,14 +486,29 @@ RSpec.describe DataStruct do
                           e: define('Nested',
                                     a: String,
                                     b: define('SubNested', c: String)),
-                          f: [define('ArrayNested', a: String)]
+                          f: [define('ArrayNested', a: String)],
+                          g: ActiveSupport::Duration,
+                          h: Money
+
+        convert Float, to: Money, with: ->(v) { Money.new(v * 100, 'USD') }
+        convert Hash, to: ActiveSupport::Duration,
+                      with: lambda { |v|
+                              0.seconds + v.sum do |unit, value|
+                                            ActiveSupport::Duration.send(unit, value)
+                                          end
+                            }
+        permit g: %w[years months weeks hours minutes seconds]
       end)
     end
 
     it 'should return the parameter keys' do
       expect(Foo.param_keys).to eq(
         [
-          'a', 'b', { 'c' => [] }, 'd', { 'e' => ['a', { 'b' => ['c'] }] }, { 'f' => ['a'] }
+          'a', 'b', { 'c' => [] }, 'd',
+          { 'e' => ['a', { 'b' => ['c'] }] },
+          { 'f' => ['a'] },
+          { 'g' => %w[years months weeks hours minutes seconds] },
+          'h'
         ]
       )
     end

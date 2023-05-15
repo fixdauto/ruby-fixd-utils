@@ -1,3 +1,8 @@
+# 1.2.4
+
+- Add support for explicit parameter keys for situations where they cannot
+  be inferred
+
 # 1.2.3
 
 - Downgrade required ruby version from 3.2 to 3.1 (still works on 3.2).

@@ -26,6 +26,14 @@ module DataStruct
       conversions[[src, to]] = with
     end
 
+    def permit(params)
+      explicit_permits.merge!(params.deep_stringify_keys)
+    end
+
+    def explicit_permits
+      @explicit_permits ||= {}
+    end
+
     def conversions
       @conversions ||= begin
         conversions = DataStruct::BUILTIN_CONVERSIONS.dup
@@ -49,7 +57,9 @@ module DataStruct
     # ActionController::Parameters#permit to permit all defined parameters.
     def param_keys(clazz = self)
       clazz.defined_attributes.map do |name, defn|
-        if defn.is_a?(Array)
+        if explicit_permits[name]
+          { name => explicit_permits[name] }
+        elsif defn.is_a?(Array)
           if defn[0].respond_to?(:defined_attributes)
             { name => param_keys(defn[0]) }
           else

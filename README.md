@@ -118,6 +118,15 @@ Foo.new(json_representation) == foo
 new_foo = foo.copy(is_admin: false)
 # Permit ActionController::Parameters with all nested, defined keys
 Foo.new(params.require(:foo).permit(*Foo.param_keys))
+# Where they can't be inferred (such as with custom converters),
+# can explicitly specify parameters to permit using `permit`:
+class Order
+  define_attributes order_id: String,
+                    total_price: Money
+  convert Hash, to: Money, with: lambda { |v| v['amount'].to_money(v['currency']) }
+  permit total_price: [:amount, :currency]
+end
+params.permit(*Order.param_keys) # [:order_id, { total_price: [:amount, :currency] }]
 ```
 
 ## UriBuilder
