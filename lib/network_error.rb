@@ -36,7 +36,9 @@ class NetworkError < StandardError
     'SocketError',
     'Errno::EPIPE',
     'Errno::ECONNRESET',
-    'Errno::EHOSTUNREACH'
+    'Errno::EHOSTUNREACH',
+    # faraday [https://github.com/lostisland/faraday]
+    'Faraday::Error'
   ].freeze
 
   class << self
@@ -55,9 +57,10 @@ class NetworkError < StandardError
     # Looks at an HTTParty response, and if it's a gateway-related
     # server error raises a NetworkError
     def raise_if_gateway_error!(res)
-      raise NetworkError, 'Bad Gateway' if res.code == 501
-      raise NetworkError, 'Service Unavailable' if res.code == 503
-      raise NetworkError, 'Gateway Timeout' if res.code == 504
+      # Faraday uses `.status`, many other HTTP clients use `.code`
+      raise NetworkError, 'Bad Gateway' if res.try(:code) == 501 || res.try(:status) == 501
+      raise NetworkError, 'Service Unavailable' if res.try(:code) == 503 || res.try(:status) == 503
+      raise NetworkError, 'Gateway Timeout' if res.try(:code) == 504 || res.try(:status) == 504
 
       res
     end
