@@ -8,5 +8,5 @@
 
 # rspec failure tracking
 .rspec_status
-
 rspec.xml
+.DS_Store

@@ -58,7 +58,8 @@ class NetworkError < StandardError
     # server error raises a NetworkError
     def raise_if_gateway_error!(res)
       # Faraday uses `.status`, many other HTTP clients use `.code`
-      raise NetworkError, 'Bad Gateway' if res.try(:code) == 501 || res.try(:status) == 501
+      raise NetworkError, 'Not Implemented' if res.try(:code) == 501 || res.try(:status) == 501
+      raise NetworkError, 'Bad Gateway' if res.try(:code) == 502 || res.try(:status) == 502
       raise NetworkError, 'Service Unavailable' if res.try(:code) == 503 || res.try(:status) == 503
       raise NetworkError, 'Gateway Timeout' if res.try(:code) == 504 || res.try(:status) == 504
 

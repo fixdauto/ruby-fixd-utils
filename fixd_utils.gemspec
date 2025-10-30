@@ -2,9 +2,9 @@
 
 Gem::Specification.new do |spec|
   spec.name = 'fixd_utils'
-  spec.version = '1.2.5'
-  spec.authors = ['Charles Julian Knight']
-  spec.email = ['julian@fixdapp.com']
+  spec.version = '1.2.6'
+  spec.authors = ['Charles Julian Knight', 'Maksim Sundukov']
+  spec.email = ['julian@fixdapp.com', 'maksim@fixdapp.com']
 
   spec.summary = 'Small utility classes for use at FIXD.'
   spec.description = <<~DESC
@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'after_commit_everywhere', '~> 1.3.0'
   spec.add_dependency 'pg', '>= 1.3', '< 2'
-  spec.add_dependency 'rails', '>= 6.0', '< 8.0'
+  spec.add_dependency 'rails', '>= 6.0', '< 9.0'
   spec.add_dependency 'redis-semaphore', '~> 0.3.1'
 
   # For more information and examples about making a new gem, check out our

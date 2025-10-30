@@ -25,3 +25,5 @@ gem 'http'
 
 # used in tests:
 gem 'money'
+
+gem 'nio4r', '~> 2.7.4'
