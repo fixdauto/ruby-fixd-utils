@@ -1,7 +1,7 @@
 image: ruby:3.2
 
 before_script:
-  - gem install bundler -v 2.3.9
+  - gem install bundler -v 2.7.4
   - bundle install
 
 rspec:
